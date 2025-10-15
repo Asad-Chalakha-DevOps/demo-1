@@ -3,7 +3,7 @@ Resources:
   - TargetService:
       Type: AWS::ECS::Service
       Properties:
-        TaskDefinition: arn:aws:ecs:ap-south-1:767397952451:task-definition/demo-zip:2
+        TaskDefinition: arn:aws:ecs:ap-south-1:767397952451:task-definition/demo-123:1
         LoadBalancerInfo:
           ContainerName: "demo-zip"
           ContainerPort: 5000

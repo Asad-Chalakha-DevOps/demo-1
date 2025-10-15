@@ -9,11 +9,11 @@
             "environment": [],
             "environmentFiles": [],
             "essential": true,
-            "image": "767397952451.dkr.ecr.ap-south-1.amazonaws.com/demo-zip:backend",
+            "image": "767397952451.dkr.ecr.ap-south-1.amazonaws.com/demo-zip",
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
-                    "awslogs-group": "/ecs/demo-zip",
+                    "awslogs-group": "/ecs/demo-123",
                     "awslogs-create-group": "true",
                     "awslogs-region": "ap-south-1",
                     "awslogs-stream-prefix": "ecs"
@@ -39,11 +39,11 @@
     "cpu": "256",
     "enableFaultInjection": false,
     "executionRoleArn": "arn:aws:iam::767397952451:role/ecsTaskExecutionRole",
-    "family": "demo-zip",
+    "family": "demo-123",
     "memory": "256",
     "networkMode": "awsvpc",
     "placementConstraints": [],
-    "registeredAt": "2025-10-15T08:37:44.652Z",
+    "registeredAt": "2025-10-15T10:57:32.071Z",
     "registeredBy": "arn:aws:iam::767397952451:root",
     "requiresAttributes": [
         {
@@ -77,13 +77,13 @@
     "requiresCompatibilities": [
         "EC2"
     ],
-    "revision": 2,
+    "revision": 1,
     "runtimePlatform": {
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
     "status": "ACTIVE",
-    "taskDefinitionArn": "arn:aws:ecs:ap-south-1:767397952451:task-definition/demo-zip:2",
+    "taskDefinitionArn": "arn:aws:ecs:ap-south-1:767397952451:task-definition/demo-123:1",
     "taskRoleArn": "arn:aws:iam::767397952451:role/CodePipelineStarterTempla-TaskDefinitionExecutionRo-0JGvCFXBg8dZ",
     "volumes": [],
     "tags": []
