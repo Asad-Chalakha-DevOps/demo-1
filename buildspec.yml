@@ -10,15 +10,13 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 767397952451.dkr.ecr.ap-south-1.amazonaws.com
-      - echo "Installing Docker Compose..."
-      - curl -L "https://github.com/docker/compose/releases/download/v2.20.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-      - chmod +x /usr/local/bin/docker-compose
-      - docker-compose --version
 
   build:
     commands:
-      - echo "Building images with Docker Compose..."
-      - docker-compose build
+      - echo "Building backend image..."
+      - docker build -t $BACKEND_IMAGE:latest backend/
+      - echo "Building frontend image..."
+      - docker build -t $FRONTEND_IMAGE:latest frontend/
 
   post_build:
     commands:
