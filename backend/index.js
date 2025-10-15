@@ -8,6 +8,7 @@ app.use(express.json());
 
 app.use("/api", apiRoutes);
 
-app.listen(5000, () => {
-  console.log("Backend running at http://localhost:5000");
+app.listen(5000, "0.0.0.0", () => {
+  console.log("Backend running at http://0.0.0.0:5000");
 });
+
