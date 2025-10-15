@@ -7,3 +7,4 @@ Resources:
         LoadBalancerInfo:
           ContainerName: "demo-zip"
           ContainerPort: 5000
+          
