@@ -12,18 +12,18 @@ phases:
 
   build:
     commands:
-      - echo Building backend image (Node 12)...
+      - echo "Building backend image (Node 12)..."
       - docker build -t $ECR_REPO:backend backend/
-      - echo Building frontend image (Node 22)...
+      - echo "Building frontend image (Node 22)..."
       - docker build -t $ECR_REPO:frontend frontend/
 
   post_build:
     commands:
-      - echo Pushing backend image...
+      - echo "Pushing backend image..."
       - docker push $ECR_REPO:backend
-      - echo Pushing frontend image...
+      - echo "Pushing frontend image..."
       - docker push $ECR_REPO:frontend
-      - echo Writing imagedefinitions.json...
+      - echo "Writing imagedefinitions.json..."
       - printf '[{"name":"backend","imageUri":"%s"},{"name":"frontend","imageUri":"%s"}]' $ECR_REPO:backend $ECR_REPO:frontend > imagedefinitions.json
 
 artifacts:
