@@ -1,0 +1,34 @@
+version: 0.2
+
+env:
+  variables:
+    BACKEND_IMAGE: 767397952451.dkr.ecr.ap-south-1.amazonaws.com/demo-zip-backend
+    FRONTEND_IMAGE: 767397952451.dkr.ecr.ap-south-1.amazonaws.com/demo-zip-frontend
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 767397952451.dkr.ecr.ap-south-1.amazonaws.com
+      - echo "Installing Docker Compose..."
+      - curl -L "https://github.com/docker/compose/releases/download/v2.20.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+      - chmod +x /usr/local/bin/docker-compose
+      - docker-compose --version
+
+  build:
+    commands:
+      - echo "Building images with Docker Compose..."
+      - docker-compose build
+
+  post_build:
+    commands:
+      - echo "Pushing backend image..."
+      - docker push $BACKEND_IMAGE:latest
+      - echo "Pushing frontend image..."
+      - docker push $FRONTEND_IMAGE:latest
+      - echo "Writing imagedefinitions.json..."
+      - printf '[{"name":"backend","imageUri":"%s"},{"name":"frontend","imageUri":"%s"}]' $BACKEND_IMAGE:latest $FRONTEND_IMAGE:latest > imagedefinitions.json
+
+artifacts:
+  files:
+    - imagedefinitions.json
