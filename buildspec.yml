@@ -2,30 +2,29 @@ version: 0.2
 
 env:
   variables:
-    BACKEND_IMAGE: 767397952451.dkr.ecr.ap-south-1.amazonaws.com/demo-zip-backend
-    FRONTEND_IMAGE: 767397952451.dkr.ecr.ap-south-1.amazonaws.com/demo-zip-frontend
+    ECR_REPO: 767397952451.dkr.ecr.ap-south-1.amazonaws.com/demo-zip
 
 phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 767397952451.dkr.ecr.ap-south-1.amazonaws.com
+      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin $ECR_REPO
 
   build:
     commands:
-      - echo "Building backend image..."
-      - docker build -t $BACKEND_IMAGE:latest backend/
-      - echo "Building frontend image..."
-      - docker build -t $FRONTEND_IMAGE:latest frontend/
+      - echo Building backend image (Node 12)...
+      - docker build -t $ECR_REPO:backend backend/
+      - echo Building frontend image (Node 22)...
+      - docker build -t $ECR_REPO:frontend frontend/
 
   post_build:
     commands:
-      - echo "Pushing backend image..."
-      - docker push $BACKEND_IMAGE:latest
-      - echo "Pushing frontend image..."
-      - docker push $FRONTEND_IMAGE:latest
-      - echo "Writing imagedefinitions.json..."
-      - printf '[{"name":"backend","imageUri":"%s"},{"name":"frontend","imageUri":"%s"}]' $BACKEND_IMAGE:latest $FRONTEND_IMAGE:latest > imagedefinitions.json
+      - echo Pushing backend image...
+      - docker push $ECR_REPO:backend
+      - echo Pushing frontend image...
+      - docker push $ECR_REPO:frontend
+      - echo Writing imagedefinitions.json...
+      - printf '[{"name":"backend","imageUri":"%s"},{"name":"frontend","imageUri":"%s"}]' $ECR_REPO:backend $ECR_REPO:frontend > imagedefinitions.json
 
 artifacts:
   files:
