@@ -1,5 +1,5 @@
 # Use Node 12 (since your environment is Node 12)
-FROM node:12-alpine
+FROM public.ecr.aws/docker/library/node:12-alpine
 
 # Set working directory
 WORKDIR /app
